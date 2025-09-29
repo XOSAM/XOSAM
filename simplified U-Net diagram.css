@@ -1,0 +1,47 @@
+Input Image (128x128)
+       │
+       ▼
+    Encoder
+ ┌───────────┐
+ │Conv2D(64) │
+ │Conv2D(64) │
+ └───────────┘
+       │
+    MaxPooling
+       ▼
+ ┌───────────┐
+ │Conv2D(128)│
+ │Conv2D(128)│
+ └───────────┘
+       │
+    MaxPooling
+       ▼
+    Bottleneck
+ ┌───────────┐
+ │Conv2D(1024)│
+ │Conv2D(1024)│
+ │ Dropout 0.5 │
+ └───────────┘
+       │
+       ▼
+    Decoder
+ ┌───────────────┐
+ │UpSampling2D   │
+ │Concatenate w/ │
+ │Encoder Layer  │
+ │Conv2D(128)x2  │
+ └───────────────┘
+       │
+ ┌───────────────┐
+ │UpSampling2D   │
+ │Concatenate w/ │
+ │Encoder Layer  │
+ │Conv2D(64)x2   │
+ └───────────────┘
+       │
+       ▼
+   Output Mask (128x128)
+   ┌───────────┐
+   │Conv2D(1)  │
+   │ Sigmoid   │
+   └───────────┘
